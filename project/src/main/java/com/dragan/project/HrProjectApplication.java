@@ -1,4 +1,4 @@
-package com.dragan.project.project;
+package com.dragan.project;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

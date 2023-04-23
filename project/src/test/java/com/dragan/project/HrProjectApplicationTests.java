@@ -1,4 +1,4 @@
-package com.dragan.project.project;
+package com.dragan.project;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
