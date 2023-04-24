@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.print.Pageable;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -71,6 +73,12 @@ public class CandidateController {
         candidate.setCandidateSkills(skillSet);
         return candidateRepo.save(candidate);
     }
+
+    @GetMapping(value = "/search-by-name/{name}")
+    public List<Candidate> getCandidatesByName(@PathVariable String name){
+        return candidateRepo.findByFullName(name);
+    }
+
 
     @DeleteMapping(value = "/delete-candidate/{id}")
     public String deleteCandidate(@PathVariable long id){
