@@ -1,5 +1,6 @@
 package com.dragan.project.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -17,6 +18,7 @@ public class Candidate {
     private String fullName;
 
     @Column
+    @JsonFormat(pattern = "dd-MM-yyyy",shape = JsonFormat.Shape.STRING)
     private LocalDate birthDate;
 
     @Column

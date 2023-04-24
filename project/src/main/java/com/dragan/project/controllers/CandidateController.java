@@ -49,6 +49,11 @@ public class CandidateController {
         return candidateService.findCandidateByName(name);
     }
 
+    @GetMapping(value = "/search-by-skill/{skillIds}")
+    public List<Candidate> getCandidatesBySkill(@PathVariable List<Long> skillIds){
+        return candidateService.findCandidateBySkills(skillIds);
+    }
+
 
     @DeleteMapping(value = "/delete-candidate/{id}")
     public String deleteCandidate(@PathVariable long id){

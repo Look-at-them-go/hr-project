@@ -7,6 +7,7 @@ import com.dragan.project.repo.SkillRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -62,6 +63,27 @@ public class CandidateService {
 
     public List<Candidate> findCandidateByName(String name){
         return candidateRepo.findByFullName(name);
+    }
+
+    public List<Candidate> findCandidateBySkills(List<Long> skillIds){
+        List<Candidate> candidateList = new ArrayList<>();
+        Set<Candidate> candidateSet = null;
+        for(Long id : skillIds){
+            Set<Candidate> temp = null;
+            Skill skill = skillRepo.findById(id).get();
+            temp = skill.getCandidateSet();
+
+            if(candidateSet == null){
+                candidateSet = temp;
+            } else {
+                candidateSet.retainAll(temp);
+            }
+        }
+        for(Candidate can: candidateSet){
+            candidateList.add(can);
+        }
+
+        return candidateList;
     }
 
     public void removeCandidate(long id){

@@ -1,9 +1,6 @@
 package com.dragan.project.controllers;
 
-import com.dragan.project.models.Candidate;
 import com.dragan.project.models.Skill;
-import com.dragan.project.repo.CandidateRepo;
-import com.dragan.project.repo.SkillRepo;
 import com.dragan.project.services.SkillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
