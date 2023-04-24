@@ -144,24 +144,7 @@ class CandidateServiceTest {
         assertEquals(1,candidateList.size());
     }
 
-    /*@Test
-    @Order(5)
-    void removeSkillTest() {
-        Skill s1 = new Skill();
-        s1.setId(1L);
-        s1.setName("java");
-        skillRepo.save(s1);
 
-        Skill s2 = new Skill();
-        s2.setId(2L);
-        s2.setName("C");
-        skillRepo.save(s2);
-
-        candidateService.updateCandidateSkill(1L,1L);
-        candidateService.updateCandidateSkill(1L,2L);
-
-
-    }*/
 
     @Test
     @Order(5)
@@ -169,17 +152,7 @@ class CandidateServiceTest {
         List<Candidate> candidateList = candidateService.findCandidateByName("milan");
         assertNotEquals(0,candidateList.size());
     }
-
-    /*@Test
-    @Order(7)
-    void findCandidateBySkillsTest() {
-        List<Long> skillIds = new ArrayList<>();
-        skillIds.add(1L);
-        skillIds.add(3L);
-
-        List<Candidate> candidateList = candidateService.findCandidateBySkills(skillIds);
-        assertEquals(1,candidateList.size());
-    }*/
+    
 
     @Test
     @Order(6)
