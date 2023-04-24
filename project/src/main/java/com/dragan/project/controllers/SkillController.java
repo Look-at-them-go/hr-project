@@ -4,6 +4,7 @@ import com.dragan.project.models.Candidate;
 import com.dragan.project.models.Skill;
 import com.dragan.project.repo.CandidateRepo;
 import com.dragan.project.repo.SkillRepo;
+import com.dragan.project.services.SkillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,22 +14,21 @@ import java.util.List;
 public class SkillController {
 
     @Autowired
-    private SkillRepo skillRepo;
+    private SkillService skillService;
 
     @GetMapping(value = "/skills")
     public List<Skill> getSkills(){
-        return skillRepo.findAll();
+        return skillService.findAllSkills();
     }
 
     @PostMapping(value = "/add-skill")
     public Skill addSkill(@RequestBody Skill skill){
-        return skillRepo.save(skill);
+        return skillService.saveSkill(skill);
     }
 
     @DeleteMapping(value = "/delete-skill/{id}")
     public String deleteSkill(@PathVariable long id){
-        Skill deleteSkill = skillRepo.findById(id).get();
-        skillRepo.delete(deleteSkill);
+        skillService.removeSkill(id);
         return "Deleted skill with id:" + id;
     }
 }
