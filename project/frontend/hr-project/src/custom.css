@@ -1,5 +1,6 @@
 a {
   color: #0366d6;
+  cursor: pointer;
 }
 
 code {
@@ -11,3 +12,4 @@ code {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+

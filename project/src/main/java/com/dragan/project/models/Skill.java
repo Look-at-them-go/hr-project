@@ -17,7 +17,7 @@ public class Skill {
     private String name;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "candidateSkills")
+    @ManyToMany(mappedBy="candidateSkills")
     private Set<Candidate> candidateSet = new HashSet<>();
 
 

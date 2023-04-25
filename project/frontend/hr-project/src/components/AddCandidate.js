@@ -39,7 +39,7 @@ export class AddCandidate extends Component {
       birthDate: this.state.birthdate,
     });
     alert("Candidate has been successfully added to database!");
-    window.location.href = "http://localhost:8080/";
+    window.location.href = "http://localhost:3000/";
   }
   componentDidMount() {
     this.getAllSkills();
@@ -129,99 +129,6 @@ export class AddCandidate extends Component {
               }
               value={this.state.birthdate}
             />
-          </label>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignSelf: "center",
-            }}
-          >
-            {this.state.skills.map((item) => {
-              return (
-                <label
-                  style={{
-                    marginRight: 16,
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
-                  <input
-                    type="checkbox"
-                    style={{ marginRight: 4 }}
-                    checked={
-                      this.state.candidateSkills.filter(
-                        (skillId) => skillId == item.id
-                      ).length == 1
-                    }
-                    onChange={() => {
-                      console.log(item.title);
-                      if (
-                        this.state.candidateSkills.filter(
-                          (skillId) => skillId == item.id
-                        ).length == 1
-                      ) {
-                        this.setState(
-                          {
-                            candidateSkills: this.state.candidateSkills.filter(
-                              (skillId) => skillId != item.id
-                            ),
-                          },
-                          () => console.log(this.state.candidateSkills)
-                        );
-                      } else {
-                        this.setState(
-                          {
-                            candidateSkills: [
-                              ...this.state.candidateSkills,
-                              item.id,
-                            ],
-                          },
-                          () => console.log(this.state.candidateSkills)
-                        );
-                      }
-                    }}
-                  />
-                  {item.title}
-                </label>
-              );
-            })}
-          </div>
-          <label
-            style={{
-              alignSelf: "center",
-              display: "flex",
-              flexDirection: "column",
-            }}
-          >
-            New skill
-            <span style={{ display: "flex", alignItems: "center" }}>
-              <input
-                type="text"
-                value={this.state.newSkillName}
-                onChange={(text) =>
-                  this.setState({ newSkillName: text.target.value })
-                }
-                style={{
-                  width: 250,
-                }}
-              />
-              <a
-                onClick={async () => {
-                  await axios.post("https://localhost:8080/add-skill", {
-                    name: this.state.newSkillName,
-                  });
-                  this.setState({ newSkillName: "" });
-                  this.getAllSkills();
-                }}
-                style={{ marginLeft: 10 }}
-              >
-                <img
-                  style={{ height: 35, width: 35 }}
-                  src="https://img.icons8.com/material-rounded/100/000000/add.png"
-                />
-              </a>
-            </span>
           </label>
           <a
             onClick={() => {

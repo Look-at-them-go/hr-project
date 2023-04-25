@@ -88,6 +88,9 @@ public class CandidateService {
 
     public void removeCandidate(long id){
         Candidate deleteCandidate = candidateRepo.findById(id).get();
+        for(Skill s : deleteCandidate.getCandidateSkills() ){
+            deleteCandidate.getCandidateSkills().remove(s);
+        }
         candidateRepo.delete(deleteCandidate);
     }
 }

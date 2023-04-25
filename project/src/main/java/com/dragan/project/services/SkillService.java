@@ -1,5 +1,6 @@
 package com.dragan.project.services;
 
+import com.dragan.project.models.Candidate;
 import com.dragan.project.models.Skill;
 import com.dragan.project.repo.SkillRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,10 @@ public class SkillService {
 
     public void removeSkill(long id){
         Skill deleteSkill = skillRepo.findById(id).get();
+        for(Candidate c : deleteSkill.getCandidateSet() ){
+            c.getCandidateSkills().remove(deleteSkill);
+        }
+
         skillRepo.delete(deleteSkill);
     }
 

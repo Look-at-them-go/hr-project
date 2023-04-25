@@ -9,7 +9,9 @@ export class Home extends Component {
       skills: [],
       skillIds: [],
       searchByName: '',
-      searchBySkill: ''
+      searchBySkill: '',
+      skillid: '',
+      skillidR: ''
     };
   }
 
@@ -31,8 +33,6 @@ export class Home extends Component {
     let data = await axios.get("http://localhost:8080/skills");
     this.setState({ skills: data.data }, () => console.log(this.state.skills));
   }
-
-
 
   async findBySkill() {
     let string = null;
@@ -60,7 +60,6 @@ export class Home extends Component {
     this.setState({ candidates: data.data });
   }
 
-
   onInputChangeName = (e) => {
     this.setState({searchByName: e.target.value});
   }
@@ -79,6 +78,30 @@ export class Home extends Component {
     if (e.key === 'Enter') {
         this.searchSkill(); 
     }
+  }
+
+  async deleteSkill(skill) {
+    this.setState((prevState) => ({
+      skills: prevState.skills.filter((e) => e.id != skill.id),
+    }));
+    this.getUsers();
+    await axios.delete(`http://localhost:8080/delete-skill/${skill.id}`);
+    alert("Skill has been removed from the list.");
+    
+  }
+
+  async addSkill(user,skillid){
+
+    await axios.put(`http://localhost:8080/${user.id}/assign-skill/${skillid}`);
+    alert("Skill added");
+    window.location.href = "http://localhost:3000/";
+  }
+
+  async removeSkill(user,skillid){
+
+    await axios.put(`http://localhost:8080/${user.id}/remove-skill/${skillid}`);
+    alert("Skill removed");
+    window.location.href = "http://localhost:3000/";
   }
 
   componentDidMount() {
@@ -102,11 +125,13 @@ export class Home extends Component {
               <th>Phone number</th>
               <th>E-mail</th>
               <th>Skills</th>
+              <th>Add Skill</th>
+              <th>Remove Skill</th>
             </tr>
           </thead>
           <tbody>
             {this.state.candidates.map((user, index) => {
-              let date = new Date(user.birthdate);
+              let date = new Date(user.birthDate);
               return (
                 <tr key={index}>
                   <td>{user.id}</td>
@@ -124,6 +149,14 @@ export class Home extends Component {
                       }
                       return string;
                     })}
+                  </td>
+                  <td>
+                    <input type="text" value = {this.state.skillid} placeholder="Add skill (id)" onChange = {e => this.setState({skillid: e.target.value})} />
+                    <a onClick={() => this.addSkill(user,this.state.skillid)}>ADD</a>
+                  </td>
+                  <td>
+                    <input type="text" value = {this.state.skillidR} placeholder="Remove skill (id)" onChange = {e => this.setState({skillidR: e.target.value})} />
+                    <a onClick={() => this.removeSkill(user,this.state.skillidR)}>Remove</a>
                   </td>
                   <td>
                     <a
@@ -145,6 +178,42 @@ export class Home extends Component {
             })}
           </tbody>
         </table>
+        <label
+            style={{
+              alignSelf: "center",
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            New skill
+            <span style={{ display: "flex", alignItems: "center" }}>
+              <input
+                type="text"
+                value={this.state.newSkillName}
+                onChange={(text) =>
+                  this.setState({ newSkillName: text.target.value })
+                }
+                style={{
+                  width: 250,
+                }}
+              />
+              <a
+                onClick={async () => {
+                  await axios.post("http://localhost:8080/add-skill", {
+                    name: this.state.newSkillName,
+                  });
+                  this.setState({ newSkillName: "" });
+                  this.getAllSkills();
+                }}
+                style={{ marginLeft: 10 }}
+              >
+                <img
+                  style={{ height: 35, width: 35 }}
+                  src="https://img.icons8.com/material-rounded/100/000000/add.png"
+                />
+              </a>
+            </span>
+          </label>
         <table className="table table-striped" aria-labelledby="tabelLabel">
           <thead>
               <tr>
