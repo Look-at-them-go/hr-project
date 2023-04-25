@@ -20,6 +20,8 @@ public class Skill {
     @ManyToMany(mappedBy = "candidateSkills")
     private Set<Candidate> candidateSet = new HashSet<>();
 
+
+
     public long getId() {
         return id;
     }
@@ -34,5 +36,13 @@ public class Skill {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<Candidate> getCandidateSet() {
+        return candidateSet;
+    }
+
+    public void setCandidateSet(Set<Candidate> candidateSet) {
+        this.candidateSet = candidateSet;
     }
 }
