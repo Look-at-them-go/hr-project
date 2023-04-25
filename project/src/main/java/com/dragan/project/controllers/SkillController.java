@@ -13,16 +13,19 @@ public class SkillController {
     @Autowired
     private SkillService skillService;
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(value = "/skills")
     public List<Skill> getSkills(){
         return skillService.findAllSkills();
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping(value = "/add-skill")
     public Skill addSkill(@RequestBody Skill skill){
         return skillService.saveSkill(skill);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping(value = "/delete-skill/{id}")
     public String deleteSkill(@PathVariable long id){
         skillService.removeSkill(id);

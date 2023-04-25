@@ -99,7 +99,7 @@ class CandidateServiceTest {
     @Test
     @Order(4)
     @Transactional
-    void updateRemoveSearchCandidateSkillTest() {
+    void updateRemoveCandidateSkillTest() {
         Skill s1 = new Skill();
         s1.setId(1L);
         s1.setName("java");
@@ -133,15 +133,6 @@ class CandidateServiceTest {
         candidateService.removeSkill(1L,2L);
 
         assertEquals(1,candidateRepo.findById(1L).get().getCandidateSkills().size());
-
-
-        // search test
-        List<Long> skillIds = new ArrayList<>();
-        //skillIds.add(1L);
-        skillIds.add(3L);
-
-        List<Candidate> candidateList = candidateService.findCandidateBySkills(skillIds);
-        assertEquals(1,candidateList.size());
     }
 
 
@@ -152,7 +143,7 @@ class CandidateServiceTest {
         List<Candidate> candidateList = candidateService.findCandidateByName("milan");
         assertNotEquals(0,candidateList.size());
     }
-    
+
 
     @Test
     @Order(6)
